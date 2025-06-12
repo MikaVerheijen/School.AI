@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>School.AI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --accent-color: #3b82f6;
+      --bg-light: #ffffff;
+      --bg-dark: #1f2937;
+      --text-light: #1f2937;
+      --text-dark: #f9fafb;
+      --card-bg-light: #f9fafb;
+      --card-bg-dark: #111827;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-light);
+      color: var(--text-light);
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    body.dark-mode {
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
+    }
+
+    body.dark-mode .card {
+      background-color: var(--card-bg-dark);
+      color: var(--text-dark);
+    }
+
+    body.dark-mode header h1,
+    body.dark-mode footer a {
+      color: #ffffff;
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem 1rem 1rem;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      font-weight: 600;
+      color: var(--accent-color);
+    }
+
+    header p {
+      font-size: 1.2rem;
+      opacity: 0.8;
+      margin-top: 0.5rem;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      max-width: 1200px;
+      width: 100%;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+
+    .card {
+      flex: 1 1 400px;
+      padding: 1rem;
+      border-radius: 1rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      background-color: var(--card-bg-light);
+      min-height: 200px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    textarea {
+      width: 100%;
+      border: none;
+      border-radius: 0.5rem;
+      padding: 0.5rem;
+      resize: vertical;
+    }
+
+    .center-buttons {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      margin-top: 1rem;
+      width: 100%;
+    }
+
+    .rewrite-container {
+      display: flex;
+      justify-content: center;
+      margin: 2rem 0 1rem;
+    }
+
+    button {
+      padding: 0.75rem 1.5rem;
+      background-color: var(--accent-color);
+      color: white;
+      border: none;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #2563eb;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      opacity: 0.6;
+      margin-top: 2rem;
+      padding-bottom: 1rem;
+    }
+
+    footer a {
+      color: var(--accent-color);
+      text-decoration: none;
+      display: block;
+      margin-top: 0.25rem;
+    }
+
+    .toggle-switch {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="toggle-switch">
+    <button onclick="toggleMode()">Toggle Dark Mode</button>
+  </div>
+
+  <header>
+    <h1>School.AI</h1>
+    <p>Easy homework, easy grades</p>
+  </header>
+
+  <div class="container">
+    <div class="card" id="input-box">
+      <h3>Paste AI Text</h3>
+      <textarea id="inputText" rows="10"></textarea>
+      <div class="center-buttons">
+        <button onclick="pasteText()">Paste</button>
+      </div>
+    </div>
+
+    <div class="card" id="output-box">
+      <h3>Humanized Result</h3>
+      <textarea id="outputText" rows="10" readonly></textarea>
+      <div class="center-buttons">
+        <button onclick="copyText()">Copy</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="rewrite-container">
+    <button id="humanizeBtn">Rewrite</button>
+  </div>
+
+  <footer>
+    Built by students, for students.<br />
+    <a href="https://demoagency.nl" target="_blank">demoagency.nl</a>
+  </footer>
+
+  <script>
+    function toggleMode() {
+      document.body.classList.toggle('dark-mode');
+    }
+
+    function copyText() {
+      const outputText = document.getElementById("outputText").value;
+      navigator.clipboard.writeText(outputText).then(() => {
+        alert("Copied to clipboard!");
+      });
+    }
+
+    function pasteText() {
+      navigator.clipboard.readText().then((text) => {
+        document.getElementById("inputText").value = text;
+      });
+    }
+  </script>
+  <script src="popup.js"></script>
+</body>
+</html>
+
